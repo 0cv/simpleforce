@@ -39,7 +39,7 @@ func (client *Client) ExecuteAnonymous(apexBody string) (*ExecuteAnonymousResult
 	baseURL := client.instanceURL
 	endpoint := fmt.Sprintf(formatString, baseURL, client.apiVersion, url.QueryEscape(apexBody))
 
-	data, err := client.httpRequest("GET", endpoint, nil)
+	data, err := client.HttpRequest("GET", endpoint, nil)
 	if err != nil {
 		log.Println(logPrefix, "HTTP GET request failed:", endpoint)
 		return nil, err

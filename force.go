@@ -84,7 +84,7 @@ func (client *Client) Query(q string) (*QueryResult, error) {
 		u = fmt.Sprintf(formatString, baseURL, client.apiVersion, url.QueryEscape(q))
 	}
 
-	data, err := client.httpRequest("GET", u, nil)
+	data, err := client.HttpRequest("GET", u, nil)
 	if err != nil {
 		log.Println(logPrefix, "HTTP GET request failed:", u)
 		return nil, err
@@ -112,7 +112,7 @@ func (client *Client) ApexREST(method, path string, requestBody io.Reader) ([]by
 
 	u := fmt.Sprintf("%s/%s", client.instanceURL, path)
 
-	data, err := client.httpRequest(method, u, requestBody)
+	data, err := client.HttpRequest(method, u, requestBody)
 	if err != nil {
 		log.Println(logPrefix, fmt.Sprintf("HTTP %s request failed:", method), u)
 		return nil, err
@@ -234,8 +234,8 @@ func (client *Client) LoginSessionID(instanceURL, sessionID string) error {
 	return nil
 }
 
-// httpRequest executes an HTTP request to the salesforce server and returns the response data in byte buffer.
-func (client *Client) httpRequest(method, url string, body io.Reader) ([]byte, error) {
+// HttpRequest executes an HTTP request to the salesforce server and returns the response data in byte buffer.
+func (client *Client) HttpRequest(method, url string, body io.Reader) ([]byte, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
